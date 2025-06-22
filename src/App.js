@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import AgoraRTC from "agora-rtc-sdk-ng";
 
-const APP_ID = 09109bfa8e3647879efbe0546d681e87;
+const APP_ID = "4f6320b6f4d64a75b2fbba6977ca23c0";
 
 function App() {
   useEffect(() => {
