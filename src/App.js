@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'; import AgoraRTC from 'agora-rtc-sdk-ng'; import io from 'socket.io-client';
 
-const socket = io('https://730e20e6-4ba3-454c-840f-a3b493a940e7-00-38ssctzgdba5e.pike.replit.dev'); const APP_ID = process.env.REACT_APP_AGORA_APP_ID;
+const socket = io('https://730e20e6-4ba3-454c-840f-a3b493a940e7-00-38ssctzgdba5e.pike.replit.dev'); const APP_ID = process.env.09109bfa8e3647879efbe0546d681e87;
 
 function App() { const client = useRef(null); const localAudioTrack = useRef(null);
 
