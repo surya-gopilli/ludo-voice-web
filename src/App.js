@@ -1,20 +1,31 @@
-import React, { useEffect, useRef } from 'react'; import AgoraRTC from 'agora-rtc-sdk-ng'; import io from 'socket.io-client';
+import React, { useEffect } from "react";
+import AgoraRTC from "agora-rtc-sdk-ng";
 
-const socket = io('https://730e20e6-4ba3-454c-840f-a3b493a940e7-00-38ssctzgdba5e.pike.replit.dev'); const APP_ID = 09109bfa8e3647879efbe0546d681e87;
+const APP_ID = 09109bfa8e3647879efbe0546d681e87;
 
-function App() { const client = useRef(null); const localAudioTrack = useRef(null);
+function App() {
+  useEffect(() => {
+    async function initAgora() {
+      try {
+        const client = AgoraRTC.createClient({ mode: "rtc", codec: "vp8" });
+        await client.join(APP_ID, "test-channel", null, null);
+        const mic = await AgoraRTC.createMicrophoneAudioTrack();
+        await client.publish([mic]);
+        console.log("✅ Agora voice connected");
+      } catch (err) {
+        console.error("❌ Agora error:", err);
+      }
+    }
 
-useEffect(() => { async function startAgora() { client.current = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' }); await client.current.join(APP_ID, 'ludo-room', null, null); localAudioTrack.current = await AgoraRTC.createMicrophoneAudioTrack(); await client.current.publish([localAudioTrack.current]); }
+    initAgora();
+  }, []);
 
-startAgora();
-
-return () => {
-  if (localAudioTrack.current) localAudioTrack.current.stop();
-  if (client.current) client.current.leave();
-};
-
-}, []);
-
-return ( <div> <h1>Ludo with Voice</h1> <p>Voice chat active. Start playing!</p> </div> ); }
+  return (
+    <div>
+      <h1>Agora Voice Test</h1>
+      <p>Check console for connection status</p>
+    </div>
+  );
+}
 
 export default App;
